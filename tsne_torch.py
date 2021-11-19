@@ -206,7 +206,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
 if __name__ == "__main__":
     print("Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.")
-    with open('data.pkl','rb') as f:
+    with open('data_pretrained.pkl','rb') as f:
         X,labels = pickle.load(f)
     labels = labels.cpu().numpy().tolist()
     # X = np.loadtxt(xfile)
