@@ -167,6 +167,8 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     #exit()
     P[P==numpy.nan]=0
     for i,t in enumerate(P):
+        print(t)
+        print(torch.sum(t))
         if torch.isnan(torch.sum(t)):
             print(i)
     print(torch.sum(P))
