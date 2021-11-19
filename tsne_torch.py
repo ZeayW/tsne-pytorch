@@ -244,6 +244,7 @@ if __name__ == "__main__":
     # otherwise may cause error in scatter
     assert(len(X[:, 0])==len(X[:,1]))
     assert(len(X)==len(labels))
+    X = X.cpu().numpy()
     tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
