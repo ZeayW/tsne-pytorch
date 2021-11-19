@@ -193,7 +193,8 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
         iY = momentum * iY - eta * (gains * dY)
         Y = Y + iY
         Y = Y - torch.mean(Y, 0)
-
+        print('iY',iY)
+        print('Y',Y)
         # Compute current value of cost function
         if (iter + 1) % 10 == 0:
             C = torch.sum(P * torch.log(P / Q))
