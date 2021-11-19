@@ -158,9 +158,11 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
     # Compute P-values
     P = x2p_torch(X, 1e-5, perplexity)
-    print(P)
+    print('1',P)
     P = P + P.t()
+    print('2',P)
     P = P / torch.sum(P)
+    print('3',P)
     P = P * 4.    # early exaggeration
     print("get P shape", P.shape)
     print('P',P)
