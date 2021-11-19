@@ -208,7 +208,8 @@ if __name__ == "__main__":
     X = np.loadtxt(xfile)
     X = torch.Tensor(X)
     labels = np.loadtxt(yfile).tolist()
-
+    print(X.shape,len(labels))
+    print(X[:10],labels[:10])
     # confirm that x file get same number point than label file
     # otherwise may cause error in scatter
     assert(len(X[:, 0])==len(X[:,1]))
