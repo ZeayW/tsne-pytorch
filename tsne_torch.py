@@ -174,7 +174,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
         num[range(n), range(n)] = 0.
         Q = num / torch.sum(num)
         Q = torch.max(Q, torch.tensor([1e-12]))
-
+        print('Q',Q)
         # Compute gradient
         PQ = P - Q
         for i in range(n):
@@ -187,6 +187,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
             momentum = final_momentum
 
         gains = (gains + 0.2) * ((dY > 0.) != (iY > 0.)).double() + (gains * 0.8) * ((dY > 0.) == (iY > 0.)).double()
+        print('gain',gains)
         gains[gains < min_gain] = min_gain
         iY = momentum * iY - eta * (gains * dY)
         Y = Y + iY
