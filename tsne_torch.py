@@ -16,6 +16,7 @@ import matplotlib.pyplot as pyplot
 import argparse
 import torch
 import pickle
+import sys
 parser = argparse.ArgumentParser()
 parser.add_argument("--xfile", type=str, default="mnist2500_X.txt", help="file name of feature stored")
 parser.add_argument("--yfile", type=str, default="mnist2500_labels.txt", help="file name of label stored")
@@ -218,8 +219,8 @@ if __name__ == "__main__":
     assert(len(X)==len(labels))
 
     with torch.no_grad():
-        Y = tsne(X, 2, 50, 20.0)
-
+        Y = tsne(X, 2, 256, 20.0)
+    print(Y)
     if opt.cuda:
         Y = Y.cpu().numpy()
 
@@ -230,7 +231,7 @@ if __name__ == "__main__":
     # for i in range(Y.shape[0]):
     #     Y1.write(str(Y[i,0])+"\n")
     #     Y2.write(str(Y[i,1])+"\n")
-
+    dir = sys.argv[1]
     pyplot.scatter(Y[:, 0], Y[:, 1], 20, labels)
-    pyplot.savefig('./res.png')
+    pyplot.savefig('./{}.png'.format(dir))
     pyplot.show()
