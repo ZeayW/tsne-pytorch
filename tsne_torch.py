@@ -16,6 +16,7 @@ import matplotlib.pyplot as pyplot
 import argparse
 import torch
 import pickle
+import numpy
 import sys
 parser = argparse.ArgumentParser()
 parser.add_argument("--xfile", type=str, default="mnist2500_X.txt", help="file name of feature stored")
@@ -162,7 +163,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     print('1',P)
     P = P + P.t()
     print('2',P)
-    P[P==torch.nan]=0
+    P[P==numpy.nan]=0
     for t in P:
         print(t)
     print(torch.sum(P))
