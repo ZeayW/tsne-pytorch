@@ -189,6 +189,8 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
         gains = (gains + 0.2) * ((dY > 0.) != (iY > 0.)).double() + (gains * 0.8) * ((dY > 0.) == (iY > 0.)).double()
         print('gain',gains)
+        print('momentum',momentum)
+        print('iY',iY,'dY',dY)
         gains[gains < min_gain] = min_gain
         iY = momentum * iY - eta * (gains * dY)
         Y = Y + iY
