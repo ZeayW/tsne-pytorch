@@ -234,6 +234,7 @@ if __name__ == "__main__":
     print("Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.")
     with open('data_pretrained.pkl','rb') as f:
         X,labels = pickle.load(f)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     labels = labels.cpu().numpy().tolist()
     # X = np.loadtxt(xfile)
     # X = torch.Tensor(X)
@@ -244,7 +245,7 @@ if __name__ == "__main__":
     # otherwise may cause error in scatter
     assert(len(X[:, 0])==len(X[:,1]))
     assert(len(X)==len(labels))
-    X = X.cpu().numpy()
+    X = X.cpu().numpy().to(device)
     tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
