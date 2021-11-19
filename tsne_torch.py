@@ -172,9 +172,10 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
         num = -2. * torch.mm(Y, Y.t())
         num = 1. / (1. + torch.add(torch.add(num, sum_Y).t(), sum_Y))
         num[range(n), range(n)] = 0.
+        print('num',num)
         Q = num / torch.sum(num)
         Q = torch.max(Q, torch.tensor([1e-12]))
-        #print('Q',Q)
+        print('Q',Q)
         # Compute gradient
         PQ = P - Q
         for i in range(n):
