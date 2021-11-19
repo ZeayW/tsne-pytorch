@@ -162,6 +162,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     P = P / torch.sum(P)
     P = P * 4.    # early exaggeration
     print("get P shape", P.shape)
+    print('P',P)
     P = torch.max(P, torch.tensor([1e-21]))
     print('P',P)
     #print('Y',Y)
