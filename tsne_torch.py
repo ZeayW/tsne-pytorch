@@ -162,7 +162,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     P = P + P.t()
     print('2',P)
     P = P / torch.sum(P)
-    print(torch.sum(P))
+    print(torch.sum(P,dim=0))
     print('3',P)
     P = P * 4.    # early exaggeration
     print("get P shape", P.shape)
