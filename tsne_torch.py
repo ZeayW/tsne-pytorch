@@ -15,7 +15,7 @@ import numpy as np
 import matplotlib.pyplot as pyplot
 import argparse
 import torch
-
+import pickle
 parser = argparse.ArgumentParser()
 parser.add_argument("--xfile", type=str, default="mnist2500_X.txt", help="file name of feature stored")
 parser.add_argument("--yfile", type=str, default="mnist2500_labels.txt", help="file name of label stored")
@@ -204,10 +204,12 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
 if __name__ == "__main__":
     print("Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.")
-
-    X = np.loadtxt(xfile)
-    X = torch.Tensor(X)
-    labels = np.loadtxt(yfile).tolist()
+    with open('data.pkl','rb') as f:
+        X,labels = pickle.load(f)
+    labels = labels.numpy().tolist()
+    # X = np.loadtxt(xfile)
+    # X = torch.Tensor(X)
+    # labels = np.loadtxt(yfile).tolist()
     print(X.shape,len(labels))
     print(X[:10],labels[:10])
     # confirm that x file get same number point than label file
@@ -230,4 +232,5 @@ if __name__ == "__main__":
     #     Y2.write(str(Y[i,1])+"\n")
 
     pyplot.scatter(Y[:, 0], Y[:, 1], 20, labels)
+    pyplot.savefig('./res.png')
     pyplot.show()
