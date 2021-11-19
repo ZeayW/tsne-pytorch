@@ -15,6 +15,7 @@ import numpy as np
 import matplotlib.pyplot as pyplot
 import argparse
 import torch
+from sklearn import manifold
 import pickle
 import numpy
 import sys
@@ -166,12 +167,12 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     #print(P[P==numpy.nan])
     #exit()
     P[P==numpy.nan]=0
-    for i,t in enumerate(P):
-        print(t)
-        print(torch.sum(t))
-        if torch.isnan(torch.sum(t)):
-            print(i)
-    print(torch.sum(P))
+    # for i,t in enumerate(P):
+    #     print(t)
+    #     print(torch.sum(t))
+    #     if torch.isnan(torch.sum(t)):
+    #         print(i)
+    # print(torch.sum(P))
     P = P / torch.sum(P)
 
     #print(torch.sum(P))
@@ -243,9 +244,10 @@ if __name__ == "__main__":
     # otherwise may cause error in scatter
     assert(len(X[:, 0])==len(X[:,1]))
     assert(len(X)==len(labels))
-
-    with torch.no_grad():
-        Y = tsne(X, 2, opt.init_dim, opt.perplex)
+    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
+    Y = tsne.fit_transform(X)
+    # with torch.no_grad():
+    #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
     print(Y)
     if opt.cuda:
         Y = Y.cpu().numpy()
