@@ -163,6 +163,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     print('1',P)
     P = P + P.t()
     print('2',P)
+    print(P==numpy.nan)
     P[P==numpy.nan]=0
     for t in P:
         print(t)
