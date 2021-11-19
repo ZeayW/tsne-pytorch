@@ -22,7 +22,6 @@ parser.add_argument("--xfile", type=str, default="mnist2500_X.txt", help="file n
 parser.add_argument("--yfile", type=str, default="mnist2500_labels.txt", help="file name of label stored")
 parser.add_argument("--cuda", type=int, default=1, help="if use cuda accelarate")
 parser.add_argument('--datapath',type=str,default=None)
-parser.add_argument('--res_dir',type=str)
 parser.add_argument('--init_dim',type=str,default=256)
 parser.add_argument('perplex',type=float,default=20)
 opt = parser.parse_args()
@@ -237,5 +236,5 @@ if __name__ == "__main__":
     #dir = sys.argv[1]
 
     pyplot.scatter(Y[:, 0], Y[:, 1], 20, labels)
-    pyplot.savefig('./{}.png'.format(opt.res_dir))
+    pyplot.savefig('./pre_id{}_pp{}.png'.format(opt.init_dim,opt.perplex))
     pyplot.show()
