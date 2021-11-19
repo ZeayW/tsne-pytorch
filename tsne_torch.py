@@ -158,9 +158,11 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
     # Compute P-values
     P = x2p_torch(X, 1e-5, perplexity)
+
     print('1',P)
     P = P + P.t()
     print('2',P)
+    P[P==torch.nan]=0
     for t in P:
         print(t)
     print(torch.sum(P))
