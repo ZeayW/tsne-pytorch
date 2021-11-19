@@ -21,7 +21,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--xfile", type=str, default="mnist2500_X.txt", help="file name of feature stored")
 parser.add_argument("--yfile", type=str, default="mnist2500_labels.txt", help="file name of label stored")
 parser.add_argument("--cuda", type=int, default=1, help="if use cuda accelarate")
-
+parser.add_argument('--dir',type=str)
 opt = parser.parse_args()
 print("get choice from args", opt)
 xfile = opt.xfile
@@ -231,7 +231,8 @@ if __name__ == "__main__":
     # for i in range(Y.shape[0]):
     #     Y1.write(str(Y[i,0])+"\n")
     #     Y2.write(str(Y[i,1])+"\n")
-    dir = sys.argv[1]
+    #dir = sys.argv[1]
+
     pyplot.scatter(Y[:, 0], Y[:, 1], 20, labels)
-    pyplot.savefig('./{}.png'.format(dir))
+    pyplot.savefig('./{}.png'.format(opt.dirs))
     pyplot.show()
