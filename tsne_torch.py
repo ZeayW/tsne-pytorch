@@ -23,7 +23,7 @@ parser.add_argument("--yfile", type=str, default="mnist2500_labels.txt", help="f
 parser.add_argument("--cuda", type=int, default=1, help="if use cuda accelarate")
 parser.add_argument('--datapath',type=str,default=None)
 parser.add_argument('--init_dim',type=int,default=256)
-parser.add_argument('--perplex',type=float,default=20)
+parser.add_argument('--perplex',type=float,default=20.0)
 opt = parser.parse_args()
 print("get choice from args", opt)
 xfile = opt.xfile
