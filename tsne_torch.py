@@ -161,8 +161,11 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     print('1',P)
     P = P + P.t()
     print('2',P)
+    for t in P:
+        print(t)
     print(torch.sum(P))
     P = P / torch.sum(P)
+
     #print(torch.sum(P))
     print('3',P)
     P = P * 4.    # early exaggeration
