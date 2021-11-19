@@ -206,7 +206,7 @@ if __name__ == "__main__":
     print("Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.")
     with open('data.pkl','rb') as f:
         X,labels = pickle.load(f)
-    labels = labels.numpy().tolist()
+    labels = labels.cpu().numpy().tolist()
     # X = np.loadtxt(xfile)
     # X = torch.Tensor(X)
     # labels = np.loadtxt(yfile).tolist()
