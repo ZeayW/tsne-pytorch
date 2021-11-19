@@ -247,7 +247,7 @@ if __name__ == "__main__":
     assert(len(X)==len(labels))
     X= X[:10]
     labels = labels[:10]
-    X = X.cpu().numpy().cuda()
+    X = X.cpu().numpy()
     tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
