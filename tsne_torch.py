@@ -166,7 +166,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
     # Run iterations
     for iter in range(max_iter):
-
+        print(Y)
         # Compute pairwise affinities
         sum_Y = torch.sum(Y*Y, 1)
         num = -2. * torch.mm(Y, Y.t())
@@ -174,7 +174,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
         num[range(n), range(n)] = 0.
         Q = num / torch.sum(num)
         Q = torch.max(Q, torch.tensor([1e-12]))
-        print('Q',Q)
+        #print('Q',Q)
         # Compute gradient
         PQ = P - Q
         for i in range(n):
