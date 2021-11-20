@@ -280,5 +280,5 @@ if __name__ == "__main__":
     #dir = sys.argv[1]
 
     pyplot.scatter(Y0, Y1, 15, labels)
-    pyplot.savefig('./pre_id{}_pp{}.png'.format(opt.init_dim,opt.perplex))
+    pyplot.savefig('./{}_pp{}.png'.format(opt.data,opt.perplex))
     pyplot.show()
