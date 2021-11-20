@@ -255,7 +255,7 @@ if __name__ == "__main__":
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
     #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
-    print(Y)
+    print(Y,type(Y))
     new_Y,new_labels = [],[]
     for i,y in enumerate(Y):
         if y[0]>200 or y[1]>200:
