@@ -245,8 +245,8 @@ if __name__ == "__main__":
     # otherwise may cause error in scatter
     assert(len(X[:, 0])==len(X[:,1]))
     assert(len(X)==len(labels))
-    X= X[:10]
-    labels = labels[:10]
+    X= X[:100]
+    labels = labels[:100]
     X = X.cpu().numpy()
     print(np.isnan(X).sum())
     print(np.isinf(X).sum())
