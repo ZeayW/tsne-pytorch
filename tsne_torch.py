@@ -248,6 +248,9 @@ if __name__ == "__main__":
     X= X[:10]
     labels = labels[:10]
     X = X.cpu().numpy()
+    print(np.isnan(X).sum())
+    print(np.isinf(X).sum())
+    exit()
     tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
