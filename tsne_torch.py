@@ -256,6 +256,14 @@ if __name__ == "__main__":
     # with torch.no_grad():
     #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
     print(Y)
+    new_Y,new_labels = [],[]
+    for i,y in enumerate(Y):
+        if y[0]>200 or y[1]>200:
+            continue
+        new_Y.append(y)
+        new_labels.append(labels[i])
+    Y=new_Y
+    labels=new_labels
     # if opt.cuda:
     #     Y = Y.cpu().numpy()
 
