@@ -28,7 +28,7 @@ parser.add_argument('--init_dim',type=int,default=256)
 parser.add_argument('--perplex',type=float,default=20.0)
 parser.add_argument('--init',type=str,default='random')
 parser.add_argument('--lr',type=float,default=200)
-parser.add_argument('niter',type=int,default=1000)
+parser.add_argument('--niter',type=int,default=1000)
 opt = parser.parse_args()
 print("get choice from args", opt)
 xfile = opt.xfile
