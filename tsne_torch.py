@@ -26,6 +26,9 @@ parser.add_argument("--cuda", type=int, default=1, help="if use cuda accelarate"
 parser.add_argument('--data',type=str,default='data_pretrained')
 parser.add_argument('--init_dim',type=int,default=256)
 parser.add_argument('--perplex',type=float,default=20.0)
+parser.add_argument('--init',type=str,default='random')
+parser.add_argument('--lr',type=float,default=200)
+parser.add_argument('niter',type=int,default=1000)
 opt = parser.parse_args()
 print("get choice from args", opt)
 xfile = opt.xfile
@@ -228,6 +231,57 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
     # Return solution
     return Y
+
+def draw_scat():
+    with open('{}.pkl'.format(opt.data), 'rb') as f:
+        X, labels = pickle.load(f)
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    labels = labels.cpu().numpy().tolist()
+    # X = np.loadtxt(xfile)
+    # X = torch.Tensor(X)
+    # labels = np.loadtxt(yfile).tolist()
+    print(X.shape, len(labels))
+    print(X[:10], labels[:10])
+    # confirm that x file get same number point than label file
+    # otherwise may cause error in scatter
+    assert (len(X[:, 0]) == len(X[:, 1]))
+    assert (len(X) == len(labels))
+    # X= X[:100]
+    # labels = labels[:100]
+    X = X.cpu().numpy()
+    print(np.isnan(X).sum())
+    print(np.isinf(X).sum())
+
+    tsne = manifold.TSNE(n_components=2, init=opt.init, random_state=0, perplexity=opt.perplex,learning_rate=opt.lr,n_iter=opt.niter)
+    Y = tsne.fit_transform(X)
+    # with torch.no_grad():
+    #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
+    # Y = Y.tolist()
+    # print(Y,type(Y))
+    Y0, Y1, new_labels = [], [], []
+    for i, y in enumerate(Y):
+        if y[0] > 50 or y[1] > 50:
+            continue
+        Y0.append(y[0])
+        Y1.append(y[1])
+        new_labels.append(labels[i])
+
+    # print(Y)
+    labels = new_labels
+    # if opt.cuda:
+    #     Y = Y.cpu().numpy()
+
+    # You may write result in two files
+    # print("Save Y values in file")
+    # Y1 = open("y1.txt", 'w')
+    # Y2 = open('y2.txt', 'w')
+    # for i in range(Y.shape[0]):
+    #     Y1.write(str(Y[i,0])+"\n")
+    #     Y2.write(str(Y[i,1])+"\n")
+    # dir = sys.argv[1]
+
+    pyplot.scatter(Y0, Y1, 15, labels)
+    pyplot.savefig('./{}_{}_lr{}_ni{}_pp{}.png'.format(opt.data, opt.init,opt.lr,opt.niter,opt.perplex))
 
 
 if __name__ == "__main__":
