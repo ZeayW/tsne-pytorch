@@ -232,7 +232,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
     # Return solution
     return Y
 
-def draw_scat():
+def draw_scat(init,perplex,lr,niter,opt):
     with open('{}.pkl'.format(opt.data), 'rb') as f:
         X, labels = pickle.load(f)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -252,7 +252,7 @@ def draw_scat():
     print(np.isnan(X).sum())
     print(np.isinf(X).sum())
 
-    tsne = manifold.TSNE(n_components=2, init=opt.init, random_state=0, perplexity=opt.perplex,learning_rate=opt.lr,n_iter=opt.niter)
+    tsne = manifold.TSNE(n_components=2, init=init, random_state=0, perplexity=perplex,learning_rate=lr,n_iter=niter)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
     #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
@@ -281,12 +281,16 @@ def draw_scat():
     # dir = sys.argv[1]
 
     pyplot.scatter(Y0, Y1, 15, labels)
-    pyplot.savefig('./{}_{}_lr{}_ni{}_pp{}.png'.format(opt.data, opt.init,opt.lr,opt.niter,opt.perplex))
+    pyplot.savefig('./{}_{}_lr{}_ni{}_pp{}.png'.format(opt.data, init,lr,niter,perplex))
 
 
 if __name__ == "__main__":
     perplexs = [30,50,80,100,120]
-    inits = ['random','pca']
+    inits = ['pca','random']
     learning_rates = [50,100,150,200,300,500]
     niters = [1000,1500]
-    
+    for init in inits:
+        for perplex in perplexs:
+            for lr in learning_rates:
+                for niter in niters:
+                    draw_scat(init,perplex,lr,niter,opt)
