@@ -285,54 +285,8 @@ def draw_scat():
 
 
 if __name__ == "__main__":
-    print("Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.")
-    with open('{}.pkl'.format(opt.data),'rb') as f:
-        X,labels = pickle.load(f)
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    labels = labels.cpu().numpy().tolist()
-    # X = np.loadtxt(xfile)
-    # X = torch.Tensor(X)
-    # labels = np.loadtxt(yfile).tolist()
-    print(X.shape,len(labels))
-    print(X[:10],labels[:10])
-    # confirm that x file get same number point than label file
-    # otherwise may cause error in scatter
-    assert(len(X[:, 0])==len(X[:,1]))
-    assert(len(X)==len(labels))
-    # X= X[:100]
-    # labels = labels[:100]
-    X = X.cpu().numpy()
-    print(np.isnan(X).sum())
-    print(np.isinf(X).sum())
-
-    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0,perplexity=opt.perplex)
-    Y = tsne.fit_transform(X)
-    # with torch.no_grad():
-    #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
-    #Y = Y.tolist()
-    #print(Y,type(Y))
-    Y0,Y1,new_labels = [],[],[]
-    for i,y in enumerate(Y):
-        if y[0]>50 or y[1]>50:
-            continue
-        Y0.append(y[0])
-        Y1.append(y[1])
-        new_labels.append(labels[i])
-
-    #print(Y)
-    labels=new_labels
-    # if opt.cuda:
-    #     Y = Y.cpu().numpy()
-
-    # You may write result in two files
-    # print("Save Y values in file")
-    # Y1 = open("y1.txt", 'w')
-    # Y2 = open('y2.txt', 'w')
-    # for i in range(Y.shape[0]):
-    #     Y1.write(str(Y[i,0])+"\n")
-    #     Y2.write(str(Y[i,1])+"\n")
-    #dir = sys.argv[1]
-
-    pyplot.scatter(Y0, Y1, 15, labels)
-    pyplot.savefig('./{}_pp{}.png'.format(opt.data,opt.perplex))
-    pyplot.show()
+    perplexs = [30,50,80,100,120]
+    inits = ['random','pca']
+    learning_rates = [50,100,150,200,300,500]
+    niters = [1000,1500]
+    
