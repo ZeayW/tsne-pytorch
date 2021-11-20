@@ -250,14 +250,14 @@ if __name__ == "__main__":
     X = X.cpu().numpy()
     print(np.isnan(X).sum())
     print(np.isinf(X).sum())
-    
+
     tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
     #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
     print(Y)
-    if opt.cuda:
-        Y = Y.cpu().numpy()
+    # if opt.cuda:
+    #     Y = Y.cpu().numpy()
 
     # You may write result in two files
     # print("Save Y values in file")
