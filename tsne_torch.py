@@ -333,7 +333,7 @@ if __name__ == "__main__":
     #     Y2.write(str(Y[i,1])+"\n")
     #dir = sys.argv[1]
 
-    pyplot.scatter(Y0, Y1, 15, labels)
+    pyplot.scatter(Y0, Y1, 20, labels)
     print('./{}_pp{}_2.png')
     pyplot.savefig('./{}_pp{}_lr{}.png'.format(opt.data,opt.perplex,opt.lr))
     pyplot.show()
