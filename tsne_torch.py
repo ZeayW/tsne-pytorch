@@ -279,6 +279,6 @@ if __name__ == "__main__":
     #     Y2.write(str(Y[i,1])+"\n")
     #dir = sys.argv[1]
 
-    pyplot.scatter(Y0, Y1, 20, labels)
+    pyplot.scatter(Y0, Y1, 50, labels)
     pyplot.savefig('./pre_id{}_pp{}.png'.format(opt.init_dim,opt.perplex))
     pyplot.show()
