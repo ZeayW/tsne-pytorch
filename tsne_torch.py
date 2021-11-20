@@ -305,7 +305,7 @@ if __name__ == "__main__":
     print(np.isnan(X).sum())
     print(np.isinf(X).sum())
 
-    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0,perplexity=opt.perplex)
+    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0,perplexity=opt.perplex,learning_rate=50)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
     #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
@@ -335,5 +335,5 @@ if __name__ == "__main__":
 
     pyplot.scatter(Y0, Y1, 15, labels)
     print('./{}_pp{}_2.png')
-    pyplot.savefig('./{}_pp{}_2.png'.format(opt.data,opt.perplex))
+    pyplot.savefig('./{}_pp{}_lr50.png'.format(opt.data,opt.perplex))
     pyplot.show()
