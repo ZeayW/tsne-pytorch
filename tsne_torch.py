@@ -232,7 +232,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
 if __name__ == "__main__":
     print("Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.")
-    with open('{}.pkl'.format(options.data),'rb') as f:
+    with open('{}.pkl'.format(opt.data),'rb') as f:
         X,labels = pickle.load(f)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     labels = labels.cpu().numpy().tolist()
@@ -251,7 +251,7 @@ if __name__ == "__main__":
     print(np.isnan(X).sum())
     print(np.isinf(X).sum())
 
-    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0,perplexity=option.perplex)
+    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0,perplexity=opt.perplex)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
     #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
