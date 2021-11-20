@@ -23,7 +23,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument("--xfile", type=str, default="mnist2500_X.txt", help="file name of feature stored")
 parser.add_argument("--yfile", type=str, default="mnist2500_labels.txt", help="file name of label stored")
 parser.add_argument("--cuda", type=int, default=1, help="if use cuda accelarate")
-parser.add_argument('--datapath',type=str,default=None)
+parser.add_argument('--data',type=str,default='data_pretrained')
 parser.add_argument('--init_dim',type=int,default=256)
 parser.add_argument('--perplex',type=float,default=20.0)
 opt = parser.parse_args()
@@ -232,7 +232,7 @@ def tsne(X, no_dims=2, initial_dims=50, perplexity=30.0):
 
 if __name__ == "__main__":
     print("Run Y = tsne.tsne(X, no_dims, perplexity) to perform t-SNE on your dataset.")
-    with open('data_pretrained.pkl','rb') as f:
+    with open('{}.pkl'.format(options.data),'rb') as f:
         X,labels = pickle.load(f)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     labels = labels.cpu().numpy().tolist()
@@ -251,7 +251,7 @@ if __name__ == "__main__":
     print(np.isnan(X).sum())
     print(np.isinf(X).sum())
 
-    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0)
+    tsne = manifold.TSNE(n_components=2, init='pca', random_state=0,perplexity=option.perplex)
     Y = tsne.fit_transform(X)
     # with torch.no_grad():
     #     Y = tsne(X, 2, opt.init_dim, opt.perplex)
@@ -279,6 +279,6 @@ if __name__ == "__main__":
     #     Y2.write(str(Y[i,1])+"\n")
     #dir = sys.argv[1]
 
-    pyplot.scatter(Y0, Y1, 50, labels)
+    pyplot.scatter(Y0, Y1, 15, labels)
     pyplot.savefig('./pre_id{}_pp{}.png'.format(opt.init_dim,opt.perplex))
     pyplot.show()
