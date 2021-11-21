@@ -313,7 +313,7 @@ if __name__ == "__main__":
     #print(Y,type(Y))
     Y0,Y1,new_labels = [],[],[]
     for i,y in enumerate(Y):
-        if y[0]>50 or y[1]>50:
+        if y[0]>-200 or y[1]>-200:
             continue
         Y0.append(y[0])
         Y1.append(y[1])
